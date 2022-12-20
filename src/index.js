@@ -14,6 +14,14 @@ server.listen(serverPort, () => {
 });
 
 server.get("/movies", (req, res) => {
-   
-  res.json(movies);
+const genderFilterParam = req.query.gender;
+const filteredMovies = movies.filter((movie) => {
+  return movie.gender.toLowerCase().includes(genderFilterParam.toLowerCase());
+});
+
+const response = {
+    success: true,
+    movies: filteredMovies,
+  };
+  res.json(response);
 });

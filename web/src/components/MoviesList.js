@@ -7,6 +7,7 @@ const MoviesList = props => {
 
   const renderMovies = () => {
     return props.movies.map(movie => {
+      
       return (
         <li key={movie.id} className="card">
           <img className="card__img" src={movie.image} alt={`Carátula de ${movie.title}`} />
@@ -18,6 +19,7 @@ const MoviesList = props => {
   };
 
   const renderEmptyList = () => {
+    console.log(props.movies);
     return <p>No hay películas en este listado</p>;
   };
 
