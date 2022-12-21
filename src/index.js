@@ -26,6 +26,9 @@ const response = {
   res.json(response);
 });
 
-// config express static server
-const staticServerPath = './src/public-react'; // relative to the root of the project
+
+const staticServerPath = './src/public-react';
 server.use(express.static(staticServerPath));
+
+const staticServerPhotoPath = './src/public-movies-images';
+server.use(express.static(staticServerPhotoPath));
