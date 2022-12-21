@@ -29,8 +29,8 @@ server.get("/movies", (req, res) => {
 
 server.post("/login", (req, res) => {
   const filteredUsers = users.find((user) => {
-    console.log(req.body.email.value);
-    return user.email === req.body.email;
+    console.log(req.body.userEmail);
+    return user.email === req.body.userEmail;
   });
   console.log(filteredUsers);
   if (filteredUsers === undefined) {
