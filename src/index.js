@@ -25,3 +25,7 @@ const response = {
   };
   res.json(response);
 });
+
+// config express static server
+const staticServerPath = './src/public-react'; // relative to the root of the project
+server.use(express.static(staticServerPath));
