@@ -29,22 +29,20 @@ server.get("/movies", (req, res) => {
 
 server.post("/login", (req, res) => {
   const filteredUsers = users.find((user) => {
-    console.log(req.body.userEmail);
-    return user.email === req.body.userEmail;
+    return user.email === req.body.userEmail && user.password === req.body.userPassword;
   });
   console.log(filteredUsers);
-  if (filteredUsers === undefined) {
-    const response = {
-      success: false,
-      errorMessage: "Usuaria/o no encontrada/o",
+  if (filteredUsers) {
+     const response = {
+      success: true,
+      userId: "id_de_la_usuaria_encontrada",
     };
     res.json(response);
   } else {
     const response = {
-      success: true,
-      userId: "id_de_la_usuaria_encontrada",
+      success: false,
+      errorMessage: "Usuaria/o no encontrada/o",
     };
-
     res.json(response);
   }
 });
@@ -62,4 +60,5 @@ server.use(express.static(staticServerPath));
 const staticServerPhotoPath = "./src/public-movies-images";
 server.use(express.static(staticServerPhotoPath));
 
-
+const staticServerStyles = "./src/public-movies-styles";
+server.use(express.static(staticServerStyles));

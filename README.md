@@ -40,7 +40,7 @@ Por favor marca a continuación los ejericios que hayais terminado:
 
 - [x] 1. Servidor de estáticos para React
 - [x] 2. Servidor de estáticos para las fotos
-- [ ] 3. Peticiones POST con body params
+- [x] 3. Peticiones POST con body params
 - [ ] 4. Mantener logada a la usuaria
 
 4.4 Express JS III:
@@ -49,7 +49,7 @@ Por favor marca a continuación los ejericios que hayais terminado:
 - [x] 2. Obtener la película
 - [x] 3. Renderiza una página cualquiera
 - [x] 4. Renderiza la película
-- [ ] 5. Añade estilos
+- [x] 5. Añade estilos
 
 4.5 Bases de datos I:
 
