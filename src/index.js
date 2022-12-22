@@ -49,6 +49,11 @@ server.post("/login", (req, res) => {
   }
 });
 
+server.get('/movie/:movieId', (req, res) => {
+  const foundMovie = movies.find((movie) => movie.id === req.params.movieId);
+  console.log(foundMovie);
+  });
+
 const staticServerPath = "./src/public-react";
 server.use(express.static(staticServerPath));
 
