@@ -16,9 +16,15 @@ server.listen(serverPort, () => {
 
 server.get("/movies", (req, res) => {
   const genderFilterParam = req.query.gender;
-  const filteredMovies = movies.filter((movie) => {
+  const filteredMovies = movies
+  .filter((movie) => {
     return movie.gender.toLowerCase().includes(genderFilterParam.toLowerCase());
   });
+    if (req.query.sort === "asc") {
+     filteredMovies.sort((a, b) => a.title.localeCompare(b.title));
+    } else {
+    filteredMovies.sort((a, b) => b.title.localeCompare(a.title));
+    }
 
   const response = {
     success: true,
