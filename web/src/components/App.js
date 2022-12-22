@@ -11,10 +11,11 @@ import SignUp from './SignUp';
 import apiMovies from '../services/api-movies';
 import apiUser from '../services/api-user';
 import router from '../services/router';
+import ls from '../services/localStorage';
 
 const App = () => {
   // state: user
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState(ls.get('userId', ''));
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -69,6 +70,10 @@ const App = () => {
         setUserMovies(response.movies);
       });
     }
+  }, [userId]);
+
+  useEffect(() => {
+    ls.set('userId', userId);
   }, [userId]);
 
   /*
