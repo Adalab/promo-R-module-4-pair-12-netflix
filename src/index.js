@@ -21,7 +21,7 @@ server.listen(serverPort, () => {
 
 server.get('/movies', (req, res) => {
   if (req.query.gender !== '') {
-    const query = db.prepare('SELECT * FROM movies WHERE gender = ?');
+    const query = db.prepare('SELECT * FROM movies WHERE lower(gender) = ?');
     const movies = query.all(req.query.gender);
     const response = {
       success: true,
