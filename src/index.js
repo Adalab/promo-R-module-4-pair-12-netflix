@@ -24,7 +24,7 @@ server.listen(serverPort, () => {
 
 server.get('/movies', (req, res) => {
   if (req.query.gender !== '') {
-    const query = db.prepare(`SELECT * FROM movies WHERE lower(gender) = ? ORDER BY ${req.body.sort.toUpperCase()}`);
+    const query = db.prepare(`SELECT * FROM movies WHERE lower(gender) = ? ORDER BY title ${req.query.sort.toUpperCase()}`);
     const movies = query.all(req.query.gender);
     const response = {
       success: true,
@@ -32,7 +32,7 @@ server.get('/movies', (req, res) => {
     };
     res.json(response);
   } else {
-    const query = db.prepare('SELECT * FROM movies');
+    const query = db.prepare(`SELECT * FROM movies ORDER BY title ${req.query.sort.toUpperCase()}`);
     const movies = query.all();
     const response = {
       success: true,
