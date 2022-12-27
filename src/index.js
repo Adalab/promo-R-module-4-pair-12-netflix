@@ -24,7 +24,7 @@ server.listen(serverPort, () => {
 
 server.get('/movies', (req, res) => {
   if (req.query.gender !== '') {
-    const query = db.prepare('SELECT * FROM movies WHERE lower(gender) = ?');
+    const query = db.prepare(`SELECT * FROM movies WHERE lower(gender) = ? ORDER BY ${req.body.sort.toUpperCase()}`);
     const movies = query.all(req.query.gender);
     const response = {
       success: true,
@@ -59,17 +59,15 @@ server.get('/movies', (req, res) => {
   res.json(response); */
 
 server.post('/login', (req, res) => {
-  const filteredUsers = users.find((user) => {
-    return (
-      user.email === req.body.userEmail &&
-      user.password === req.body.userPassword
-    );
-  });
-  console.log(filteredUsers);
-  if (filteredUsers) {
+  const email = req.body.userEmail;
+  const password = req.body.userPassword;
+  const query = dbUsers.prepare('SELECT * FROM users WHERE email = ? AND password = ?');
+  const foundUserLogin = query.get(email, password);
+
+  if (foundUserLogin) {
     const response = {
       success: true,
-      userId: 'id_de_la_usuaria_encontrada',
+      userId: foundUserLogin.id,
     };
     res.json(response);
   } else {

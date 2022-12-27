@@ -1,6 +1,7 @@
 // login
 
 const sendLoginToApi = data => {
+  console.log(data, 'Tiene id?')
   const bodyParams = {
     userEmail:data.email,
     userPassword:data.password,
