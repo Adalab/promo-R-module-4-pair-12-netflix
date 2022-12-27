@@ -186,7 +186,7 @@ const App = () => {
           element=
           {<Login loginErrorMessage={loginErrorMessage} sendLoginToApi={sendLoginToApi} />} />
 
-        <Route path="/signup"
+        <Route path="/sign-up"
           element={
             <SignUp signUpErrorMessage={signUpErrorMessage} sendSingUpToApi={sendSingUpToApi} />} />
 

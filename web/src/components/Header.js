@@ -12,7 +12,7 @@ const Header = props => {
             </Link>
           </li>
           <li className="nav__item">
-            <Link className="nav__link" to="/signup">
+            <Link className="nav__link" to="/sign-up">
               Registro
             </Link>
           </li>
