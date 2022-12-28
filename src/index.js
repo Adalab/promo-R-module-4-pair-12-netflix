@@ -86,8 +86,28 @@ server.post('/sign-up', (req, res) => {
   }
 });
 
+server.post('/user/profile', (req, res) => {
+  const selectUsers = db.prepare('UPDATE users SET email = ?, name = ?, password = ? WHERE id = ?');
+  const foundUser = selectUsers.run(req.body.userEmail, req.body.userName, req.body.userPassword, req.header('user-id'));
+    res.json({
+      success: true,
+    });
+  });
+
+server.get('/user/profile', (req, res) => {
+  const selectUser = db.prepare('SELECT * FROM users WHERE id = ?');
+  const foundUser = selectUser.get(req.header('user-id'));
+  console.log(foundUser, 'hfiosefhgieh')
+  res.json({
+    success: true,
+    name: foundUser.name,
+    email: foundUser.email,
+    password: foundUser.password 
+  });
+  res.send('/profile');
+});
+
 server.get('/movie/:movieId', (req, res) => {
-  console.log(req.params, 'hola');
   const foundMovie = db.prepare('SELECT * FROM movies WHERE id = ?');
   const movieInfo = foundMovie.get(req.params.movieId);
   res.render('movie', movieInfo);
@@ -98,7 +118,6 @@ server.get('/user/movies', (req, res) => {
     'SELECT movieId FROM rel_movies_users WHERE userId = ?'
   );
   const movieIds = movieIdsQuery.all(req.header('user-id'));
-  console.log(movieIds, 'movieids');
 
   const moviesIdsQuestions = movieIds.map((id) => '?').join(', ');
 
