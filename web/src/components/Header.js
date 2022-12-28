@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Header = props => {
+const Header = (props) => {
   const renderUnloggedUserLinks = () => {
     if (props.isUserLogged === false)
       return (
         <>
-          <li className="nav__item">
-            <Link className="nav__link" to="/login">
+          <li className='nav__item'>
+            <Link className='nav__link' to='/login'>
               Login
             </Link>
           </li>
-          <li className="nav__item">
-            <Link className="nav__link" to="/sign-up">
+          <li className='nav__item'>
+            <Link className='nav__link' to='/sign-up'>
               Registro
             </Link>
           </li>
@@ -24,18 +24,18 @@ const Header = props => {
     if (props.isUserLogged === true)
       return (
         <>
-          <li className="nav__item">
-            <Link className="nav__link" to="/profile">
+          <li className='nav__item'>
+            <Link className='nav__link' to='/profile'>
               Mi perfil
             </Link>
           </li>
-          <li className="nav__item">
-            <Link className="nav__link" to="/my-movies">
+          <li className='nav__item'>
+            <Link className='nav__link' to='/user/movies'>
               Mis películas
             </Link>
           </li>
-          <li className="nav__item">
-            <span className="nav__link" onClick={props.logout}>
+          <li className='nav__item'>
+            <span className='nav__link' onClick={props.logout}>
               Cerrar sesión
             </span>
           </li>
@@ -44,14 +44,14 @@ const Header = props => {
   };
 
   return (
-    <header className="col2 border--medium">
-      <Link className="nav__link" to="/">
-        <h1 className="title--big">Netflix</h1>
+    <header className='col2 border--medium'>
+      <Link className='nav__link' to='/'>
+        <h1 className='title--big'>Netflix</h1>
       </Link>
-      <nav className="text-align-right">
+      <nav className='text-align-right'>
         <ul>
-          <li className="nav__item">
-            <Link className="nav__link" to="/">
+          <li className='nav__item'>
+            <Link className='nav__link' to='/'>
               Inicio
             </Link>
           </li>

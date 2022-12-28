@@ -60,7 +60,7 @@ Por favor marca a continuación los ejericios que hayais terminado:
 - [ ] 5. SELECT para el motor de plantillas
 - [x] 6. Crear la tabla de usuarias
 
-  4.6 Bases de datos I:
+  4.6 Bases de datos II:
 
 - [x] 1. Registro de nuevas usuarias en el front
 - [x] 2. Registro de nuevas usuarias en el back
@@ -70,11 +70,11 @@ Por favor marca a continuación los ejericios que hayais terminado:
 - [ ] 6. Recupera los datos del perfil de la usuaria desde el front
 - [ ] 7. Recupera los datos del perfil de la usuaria desde el back
 
-  4.7 Bases de datos I:
+  4.7 Bases de datos III:
 
-- [ ] 1. Pensar qué relación es
-- [ ] 2. Crear una relación N a N
-- [ ] 3. Crear el endpoint en el front
-- [ ] 4. Crear el endpoint en el back
-- [ ] 5. Obtener los ids de las películas de la usuaria
-- [ ] 6. Obtener todos los datos de las películas de la usuaria
+- [x] 1. Pensar qué relación es
+- [x] 2. Crear una relación N a N
+- [x] 3. Crear el endpoint en el front
+- [x] 4. Crear el endpoint en el back
+- [x] 5. Obtener los ids de las películas de la usuaria
+- [x] 6. Obtener todos los datos de las películas de la usuaria

@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 /* const movies = require('./data/movies.json'); */
-const users = require('./data/users.json');
+/* const users = require('./data/users.json'); */
 
 // create and config server
 const server = express();
@@ -9,10 +9,7 @@ const Database = require('better-sqlite3');
 server.use(cors());
 server.use(express.json());
 server.set('view engine', 'ejs');
-const db = new Database('./src/data/movies.db', {
-  verbose: console.log,
-});
-const dbUsers = new Database('./src/data/users.db', {
+const db = new Database('./src/data/database.db', {
   verbose: console.log,
 });
 
@@ -24,7 +21,9 @@ server.listen(serverPort, () => {
 
 server.get('/movies', (req, res) => {
   if (req.query.gender !== '') {
-    const query = db.prepare(`SELECT * FROM movies WHERE lower(gender) = ? ORDER BY title ${req.query.sort.toUpperCase()}`);
+    const query = db.prepare(
+      `SELECT * FROM movies WHERE lower(gender) = ? ORDER BY title ${req.query.sort.toUpperCase()}`
+    );
     const movies = query.all(req.query.gender);
     const response = {
       success: true,
@@ -32,7 +31,9 @@ server.get('/movies', (req, res) => {
     };
     res.json(response);
   } else {
-    const query = db.prepare(`SELECT * FROM movies ORDER BY title ${req.query.sort.toUpperCase()}`);
+    const query = db.prepare(
+      `SELECT * FROM movies ORDER BY title ${req.query.sort.toUpperCase()}`
+    );
     const movies = query.all();
     const response = {
       success: true,
@@ -42,26 +43,12 @@ server.get('/movies', (req, res) => {
   }
 });
 
-/* const genderFilterParam = req.query.gender;
-  const filteredMovies = movies.filter((movie) => {
-    return movie.gender.toLowerCase().includes(genderFilterParam.toLowerCase());
-  });
-  if (req.query.sort === "asc") {
-    filteredMovies.sort((a, b) => a.title.localeCompare(b.title));
-  } else {
-    filteredMovies.sort((a, b) => b.title.localeCompare(a.title));
-  }
-
-  const response = {
-    success: true,
-    movies: filteredMovies,
-  };
-  res.json(response); */
-
 server.post('/login', (req, res) => {
   const email = req.body.userEmail;
   const password = req.body.userPassword;
-  const query = dbUsers.prepare('SELECT * FROM users WHERE email = ? AND password = ?');
+  const query = db.prepare(
+    'SELECT * FROM users WHERE email = ? AND password = ?'
+  );
   const foundUserLogin = query.get(email, password);
 
   if (foundUserLogin) {
@@ -82,27 +69,49 @@ server.post('/login', (req, res) => {
 server.post('/sign-up', (req, res) => {
   const email = req.body.userEmail;
   const password = req.body.userPassword;
-  const selectUsers = dbUsers.prepare('SELECT * FROM users WHERE email = ?');
+  const selectUsers = db.prepare('SELECT * FROM users WHERE email = ?');
   const foundUser = selectUsers.get(email);
   if (foundUser === undefined) {
-    const query = dbUsers.prepare('INSERT INTO users (email, password)  VALUES (? , ?)');
+    const query = db.prepare(
+      'INSERT INTO users (email, password)  VALUES (? , ?)'
+    );
     const result = query.run(email, password);
     res.json({
-      "success": true,
-      "userId": result.lastInsertRowid
+      success: true,
+      userId: result.lastInsertRowid,
     });
   } else {
     res.json({
-      "success": false,
-      "errorMessage": "Usuaria ya existente"
+      success: false,
+      errorMessage: 'Usuaria ya existente',
     });
   }
-
 });
 
 server.get('/movie/:movieId', (req, res) => {
   const foundMovie = movies.find((movie) => movie.id === req.params.movieId);
   res.render('movie', foundMovie);
+});
+
+server.get('/user/movies', (req, res) => {
+  const movieIdsQuery = db.prepare(
+    'SELECT movieId FROM rel_movies_users WHERE userId = ?'
+  );
+  const movieIds = movieIdsQuery.all(req.header('user-id'));
+  console.log(movieIds, 'movieids');
+
+  const moviesIdsQuestions = movieIds.map((id) => '?').join(', ');
+
+  const moviesQuery = db.prepare(
+    `SELECT * FROM movies WHERE id IN (${moviesIdsQuestions})`
+  );
+  const moviesIdsNumbers = movieIds.map((movie) => movie.movieId);
+  const movies = moviesQuery.all(moviesIdsNumbers);
+
+  res.json({
+    success: true,
+    movies: movies,
+  });
 });
 
 const staticServerPath = './src/public-react';
