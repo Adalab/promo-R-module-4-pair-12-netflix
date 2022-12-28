@@ -42,8 +42,9 @@ server.get('/movies', (req, res) => {
 });
 
 server.post('/login', (req, res) => {
-  const email = req.body.userEmail;
-  const password = req.body.userPassword;
+  console.log(req.body);
+  const email = req.body.email;
+  const password = req.body.password;
   const query = db.prepare(
     'SELECT * FROM users WHERE email = ? AND password = ?'
   );
@@ -87,24 +88,19 @@ server.post('/sign-up', (req, res) => {
 });
 
 server.post('/user/profile', (req, res) => {
-  const selectUsers = db.prepare('UPDATE users SET email = ?, name = ?, password = ? WHERE id = ?');
-  const foundUser = selectUsers.run(req.body.userEmail, req.body.userName, req.body.userPassword, req.header('user-id'));
-    res.json({
-      success: true,
-    });
-  });
-
-server.get('/user/profile', (req, res) => {
-  const selectUser = db.prepare('SELECT * FROM users WHERE id = ?');
-  const foundUser = selectUser.get(req.header('user-id'));
-  console.log(foundUser, 'hfiosefhgieh')
+  const selectUsers = db.prepare(
+    'UPDATE users SET email = ?, name = ?, password = ? WHERE id = ?'
+  );
+  const foundUser = selectUsers.run(
+    req.body.userEmail,
+    req.body.userName,
+    req.body.userPassword,
+    req.header.userId
+  );
+  console.log(req.header.userId);
   res.json({
     success: true,
-    name: foundUser.name,
-    email: foundUser.email,
-    password: foundUser.password 
   });
-  res.send('/profile');
 });
 
 server.get('/movie/:movieId', (req, res) => {
@@ -131,7 +127,7 @@ server.get('/user/movies', (req, res) => {
     success: true,
     movies: movies,
   });
-  res.send('/my-movies');
+  /* res.send('/my-movies'); */
 });
 
 const staticServerPath = './src/public-react';

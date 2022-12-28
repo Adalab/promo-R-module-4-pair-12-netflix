@@ -25,12 +25,12 @@ const Header = (props) => {
       return (
         <>
           <li className='nav__item'>
-            <Link className='nav__link' to='/profile'>
+            <Link className='nav__link' to='/user/profile'>
               Mi perfil
             </Link>
           </li>
           <li className='nav__item'>
-            <Link className='nav__link' to='/my-movies'>
+            <Link className='nav__link' to='/user/movies'>
               Mis películas
             </Link>
           </li>

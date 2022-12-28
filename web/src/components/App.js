@@ -143,6 +143,7 @@ const App = () => {
   const logout = () => {
     router.redirect('/');
     router.reload();
+    ls.set('userId', '');
   };
 
   /*
@@ -181,7 +182,7 @@ const App = () => {
           }
         />
 
-        <Route path='my-movies' element={<MyMovies movies={userMovies} />} />
+        <Route path='/user/movies' element={<MyMovies movies={userMovies} />} />
 
         <Route
           path='/login'
@@ -204,7 +205,7 @@ const App = () => {
         />
 
         <Route
-          path='/profile'
+          path='/user/profile'
           element={
             <Profile
               userName={userName}

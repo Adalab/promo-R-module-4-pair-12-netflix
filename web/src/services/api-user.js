@@ -2,16 +2,13 @@
 
 const sendLoginToApi = (data) => {
   console.log(data, 'Tiene id?');
-  const bodyParams = {
-    userEmail: data.email,
-    userPassword: data.password,
-  };
+
   return fetch('//localhost:4000/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(bodyParams),
+    body: JSON.stringify(data),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -22,16 +19,17 @@ const sendLoginToApi = (data) => {
 // signup
 
 const sendSingUpToApi = (data) => {
-  const bodyParams = {
+  console.log(data, 'signup');
+  /* const bodyParams = {
     userEmail: data.email,
     userPassword: data.password,
-  };
+  }; */
   return fetch('//localhost:4000/sign-up', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(bodyParams),
+    body: JSON.stringify(data),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -42,12 +40,12 @@ const sendSingUpToApi = (data) => {
 // profile
 
 const sendProfileToApi = (userId) => {
-  console.log('Se están enviando datos al profile:', userId);
-   const bodyParams = {
+  const bodyParams = {
     userEmail: userId.email,
     userName: userId.name,
     userPassword: userId.password,
   };
+  console.log('Se están enviando datos al profile:', userId);
   return fetch('//localhost:4000/user/profile', {
     method: 'POST',
     headers: {
@@ -55,21 +53,20 @@ const sendProfileToApi = (userId) => {
       'user-id': userId,
     },
     body: JSON.stringify(bodyParams),
-  })
+  });
 };
-
 
 const getProfileFromApi = (userId) => {
   console.log('Se están pidiendo datos del profile del usuario:', userId);
   return fetch('//localhost:4000/user/profile', {
-   headers: {
+    headers: {
       'user-id': userId,
-   }}
-  )
-  .then(response => response.json())
-  .then(data => {
-     return data;
-  });
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    });
 };
 
 // user movies
