@@ -1,8 +1,32 @@
-* {
-   
-}
+@import url("//fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("//beta.adalab.es/resources/stylesheets/all.css");
 
-.title {
-    background-color: pink;
-    font-family:'Courier New', Courier, monospace;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+  }
+
+.movies__filters {
+    display: flex;
+    align-items: center;
+  }
+  .movies__filters > * {
+    width: 50%;
+  }
+  
+  .movies__radio {
+    display: inline-block;
+    margin: 0 0.5rem;
+  }
+
+.movie {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.movie__img {
+    width: 200px;
 }

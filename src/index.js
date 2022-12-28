@@ -1,7 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-/* const movies = require('./data/movies.json'); */
-/* const users = require('./data/users.json'); */
 
 // create and config server
 const server = express();
