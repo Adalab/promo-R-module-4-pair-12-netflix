@@ -181,7 +181,7 @@ const App = () => {
           }
         />
 
-        <Route path='/user/movies' element={<MyMovies movies={userMovies} />} />
+        <Route path='my-movies' element={<MyMovies movies={userMovies} />} />
 
         <Route
           path='/login'

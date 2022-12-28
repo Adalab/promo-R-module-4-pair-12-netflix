@@ -30,7 +30,7 @@ const Header = (props) => {
             </Link>
           </li>
           <li className='nav__item'>
-            <Link className='nav__link' to='/user/movies'>
+            <Link className='nav__link' to='/my-movies'>
               Mis películas
             </Link>
           </li>

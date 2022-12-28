@@ -89,8 +89,10 @@ server.post('/sign-up', (req, res) => {
 });
 
 server.get('/movie/:movieId', (req, res) => {
-  const foundMovie = movies.find((movie) => movie.id === req.params.movieId);
-  res.render('movie', foundMovie);
+  console.log(req.params, 'hola');
+  const foundMovie = db.prepare('SELECT * FROM movies WHERE id = ?');
+  const movieInfo = foundMovie.get(req.params.movieId);
+  res.render('movie', movieInfo);
 });
 
 server.get('/user/movies', (req, res) => {
@@ -112,6 +114,7 @@ server.get('/user/movies', (req, res) => {
     success: true,
     movies: movies,
   });
+  res.send('/my-movies');
 });
 
 const staticServerPath = './src/public-react';
