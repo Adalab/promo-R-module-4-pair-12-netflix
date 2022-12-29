@@ -27,7 +27,7 @@ server.get('/movies', (req, res) => {
       success: true,
       movies: movies,
     };
-    res.json(response);
+    return res.json(response);
   } else {
     const query = db.prepare(
       `SELECT * FROM movies ORDER BY title ${req.query.sort.toUpperCase()}`
@@ -37,7 +37,7 @@ server.get('/movies', (req, res) => {
       success: true,
       movies: movies,
     };
-    res.json(response);
+    return res.json(response);
   }
 });
 
@@ -55,13 +55,13 @@ server.post('/login', (req, res) => {
       success: true,
       userId: foundUserLogin.id,
     };
-    res.json(response);
+    return res.json(response);
   } else {
     const response = {
       success: false,
       errorMessage: 'Usuaria/o no encontrada/o',
     };
-    res.json(response);
+    return res.json(response);
   }
 });
 
@@ -75,31 +75,43 @@ server.post('/sign-up', (req, res) => {
       'INSERT INTO users (email, password)  VALUES (? , ?)'
     );
     const result = query.run(email, password);
-    res.json({
+    return res.json({
       success: true,
       userId: result.lastInsertRowid,
     });
   } else {
-    res.json({
+    return res.json({
       success: false,
       errorMessage: 'Usuaria ya existente',
     });
   }
 });
 
-server.post('/user/profile', (req, res) => {
+server.patch('/user/profile', (req, res) => {
   const selectUsers = db.prepare(
     'UPDATE users SET email = ?, name = ?, password = ? WHERE id = ?'
   );
   const foundUser = selectUsers.run(
-    req.body.userEmail,
-    req.body.userName,
-    req.body.userPassword,
-    req.header.userId
+    req.body.email,
+    req.body.name,
+    req.body.password,
+    req.header('user-id')
   );
-  console.log(req.header.userId);
+  console.log(req.header('user-id'));
   res.json({
     success: true,
+  });
+});
+
+server.get('/user/profile', (req, res) => {
+  const selectUser = db.prepare('SELECT * FROM users WHERE id = ?');
+  const foundUser = selectUser.get(req.header('user-id'));
+  console.log(foundUser, 'hfiosefhgieh');
+  res.json({
+    success: true,
+    name: foundUser.name,
+    email: foundUser.email,
+    password: foundUser.password,
   });
 });
 

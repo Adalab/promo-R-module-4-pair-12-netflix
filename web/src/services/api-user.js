@@ -39,20 +39,15 @@ const sendSingUpToApi = (data) => {
 
 // profile
 
-const sendProfileToApi = (userId) => {
-  const bodyParams = {
-    userEmail: userId.email,
-    userName: userId.name,
-    userPassword: userId.password,
-  };
-  console.log('Se están enviando datos al profile:', userId);
+const sendProfileToApi = (userId, data) => {
+  console.log('Se están enviando datos al profile:', userId, data);
   return fetch('//localhost:4000/user/profile', {
-    method: 'POST',
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       'user-id': userId,
     },
-    body: JSON.stringify(bodyParams),
+    body: JSON.stringify(data),
   });
 };
 
